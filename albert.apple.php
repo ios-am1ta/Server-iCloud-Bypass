@@ -1,7 +1,7 @@
 <?php
 /*
-   PHP DEVELOPED BY: FAILBR34K
-   MODIFIED BY: BRAYAN VILLA
+   PHP DEVELOPED BY: Kangkarungs
+
 */
 //=======================================================================================================================================//
 
@@ -11,13 +11,13 @@ $activation= (array_key_exists('activation-info-base64', $_POST)
 						  
 if(!isset($activation) || empty($activation))
 {
-	header('location: https://LOCALIZACIÓN DE PAGINA DE ERROR DE SU SERVIDOR/404.html'); 
+	header('location: https://LOCATING YOUR SERVER ERROR PAGE/404.html'); 
 	exit('404'); 
 }
 //=======================================================================================================================================//
 
 //Load & Decode ActivationInfoXML
-//Carga y decodificación de ActivationInfoXML
+//Load and decode ActivationInfoXML
 
 $encodedrequest = new DOMDocument;
 $encodedrequest->loadXML($activation);
@@ -64,8 +64,6 @@ else
 
 //=======================================================================================================================================//
 // This is a device activation information without linking to Find My iPhone, so Albert responds with an ActivationRecord
-
-// Esta es una información de activación de un dispositivo sin vinculación a Buscar mi iPhone, por lo que albert responde con un ActivationRecord
 
 $curl = curl_init();
 
@@ -215,19 +213,19 @@ $curlResponse = curl_exec($curl);
 curl_close($curl);
 //=======================================================================================================================================//
 
-//Cargar la respuesta de curl a variable 
+//Load curl response to variable
 
 $encodedAlbertResponse = new DOMDocument;
 $encodedAlbertResponse->loadXML($curlResponse);
 
-//Imprimir respuesta de curl
+//Print curl response
 
 $decodedAlbertResponse = base64_decode($encodedAlbertResponse->getElementsByTagName('data')->item(0)->nodeValue);
 $FairPlayKeyData = $encodedAlbertResponse->getElementsByTagName('data')->item(2)->nodeValue; //OK
 $deviceCertificate = $encodedAlbertResponse->getElementsByTagName('data')->item(1)->nodeValue; //OK
 $accountTokenCertificate = $encodedAlbertResponse->getElementsByTagName('data')->item(0)->nodeValue;
 
-//sacar el tiket del wildcard
+//get the wildcard ticket
 $accountTokenDecodedAlbert = base64_decode($encodedAlbertResponse->getElementsByTagName('data')->item(3)->nodeValue);
 $WildcardTicket = explode('"WildcardTicket" = "', $accountTokenDecodedAlbert)[1];
 $WildcardTicket5 = explode('";', $WildcardTicket)[0];
